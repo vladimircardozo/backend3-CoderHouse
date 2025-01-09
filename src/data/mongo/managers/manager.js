@@ -12,7 +12,7 @@ class Manager {
     }
   };
 
-  ReadByEmail = async (email) => {
+  readByEmail = async (email) => {
     try {
       const one = await this.model.findOne({ email }).lean();
       return one;
@@ -49,7 +49,7 @@ class Manager {
     }
   };
 
-  delete = async (id) => {
+  destroy = async (id) => {
     try {
       const one = await this.model.findByIdAndDelete(id);
       return one;
