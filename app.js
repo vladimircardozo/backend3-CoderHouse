@@ -14,5 +14,3 @@ dbConnect()
         console.error('Error connecting to MongoDB:', err);
         process.exit(1);
     });
-
-
