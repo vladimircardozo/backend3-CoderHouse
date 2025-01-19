@@ -2,7 +2,7 @@ import Product from "../data/mongo/models/product.model.js";
 
 const setupSocket = (io) => {
   io.on("connection", async (socket) => {
-    console.log("Nuevo cliente conectado 🙍‍♂️");
+    console.log("Nuevo cliente conectado ✔️");
 
     try {
       const products = await Product.find();
