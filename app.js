@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 import { Server as socketIOserver } from "socket.io";
 import http from "http";
@@ -16,6 +17,7 @@ const server = http.createServer(app);
 const io = new socketIOserver(server);
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 const __dirname = path.resolve();
@@ -23,10 +25,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", appRouter);
 
-app.get("products", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const products = await Product.find();
-    res.render("index", { products });
+    res.json(products);
   } catch (error) {
     console.error(
       "Error al cargar los productos desde la base de datos:",
