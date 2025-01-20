@@ -8,6 +8,7 @@ import setupSocket from "./src/utils/socket.util.js";
 import dbConnect from "./src/utils/dbConnect.util.js";
 import appRouter from "./src/routes/app.router.js";
 import Product from "./src/data/mongo/models/product.model.js";
+import compression from "express-compression";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -17,6 +18,12 @@ const server = http.createServer(app);
 const io = new socketIOserver(server);
 
 app.use(express.json());
+app.use(compression({
+  brotli: {
+    enabled: true,
+    zlib: {}
+  }
+}));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
