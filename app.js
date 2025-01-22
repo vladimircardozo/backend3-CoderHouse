@@ -9,6 +9,7 @@ import dbConnect from "./src/utils/dbConnect.util.js";
 import appRouter from "./src/routes/app.router.js";
 import Product from "./src/data/mongo/models/product.model.js";
 import compression from "express-compression";
+import manejadorError from "./src/middlewares/error.js"
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -49,6 +50,7 @@ setupSocket(io);
 
 dbConnect()
   .then(() => {
+    app.use(manejadorError);
     server.listen(PORT, () => {
       console.log(`Servidor escuchando en el puerto ${PORT} 🚀`);
     });
