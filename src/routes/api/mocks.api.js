@@ -19,22 +19,19 @@ router.get('/mockingusers', async (req, res) => {
 router.post("/generateData", async (req, res) => {
     const { users, pets } = req.body;
   
-    // Validar los parámetros recibidos
     if (!Number.isInteger(users) || users < 0 || !Number.isInteger(pets) || pets < 0) {
       return res.status(400).json({ error: "Los parámetros 'users' y 'pets' deben ser números positivos." });
     }
   
     try {
-      // Generar usuarios y guardarlos en la base de datos
       const generatedUsers = await Promise.all(
-        Array.from({ length: users }, () => generateUsers(1)) // Generar usuarios
+        Array.from({ length: users }, () => generateUsers(1))
       );
-      const flattenedUsers = generatedUsers.flat(); // Aplanar el array generado
-      const insertedUsers = await User.insertMany(flattenedUsers); // Guardar en la base de datos
+      const flattenedUsers = generatedUsers.flat(); 
+      const insertedUsers = await User.insertMany(flattenedUsers); 
   
-      // Generar mascotas y guardarlas en la base de datos
-      const generatedPets = generatePets(pets); // Generar mascotas
-      const insertedPets = await Pet.insertMany(generatedPets); // Guardar en la base de datos
+      const generatedPets = generatePets(pets); 
+      const insertedPets = await Pet.insertMany(generatedPets);
   
       res.status(201).json({
         message: "Datos generados exitosamente.",
