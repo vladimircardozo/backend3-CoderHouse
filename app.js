@@ -9,7 +9,9 @@ import dbConnect from "./src/utils/dbConnect.util.js";
 import appRouter from "./src/routes/app.router.js";
 import Product from "./src/data/mongo/models/product.model.js";
 import compression from "express-compression";
-import manejadorError from "./src/middlewares/error.js"
+import manejadorError from "./src/middlewares/error.js";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -18,13 +20,40 @@ const app = express();
 const server = http.createServer(app);
 const io = new socketIOserver(server);
 
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Documentación de la App Adoptame",
+      description:
+        "App dedicada a encontrar familias para los perritos de la calle",
+    },
+    servers: [
+      {
+        url: `http://localhost:${PORT}`,
+        description: "Servidor local"
+      }
+    ]
+  },
+  apis: ["./src/docs/**/*.yaml"],
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use(
+  "/api-docs",
+  swaggerUiExpress.serve,
+  swaggerUiExpress.setup(swaggerDocs)
+);
+
 app.use(express.json());
-app.use(compression({
-  brotli: {
-    enabled: true,
-    zlib: {}
-  }
-}));
+app.use(
+  compression({
+    brotli: {
+      enabled: true,
+      zlib: {},
+    },
+  })
+);
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 

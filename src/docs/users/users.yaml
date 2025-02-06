@@ -1,0 +1,125 @@
+openapi: 3.0.1
+info:
+  title: API de Usuarios
+  version: "1.0"
+  description: Endpoints relacionados con la gestión de usuarios y generación de datos ficticios.
+
+paths:
+  /api/mockingusers:
+    get:
+      summary: Generar usuarios ficticios
+      description: Genera una lista de 50 usuarios ficticios para pruebas.
+      responses:
+        200:
+          description: Lista de usuarios ficticios generada correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: "651a8c4e9a1e2b001c2b4557"
+                    name:
+                      type: string
+                      example: "Juan Pérez"
+                    email:
+                      type: string
+                      format: email
+                      example: "juanperez@example.com"
+        500:
+          description: Error interno del servidor.
+
+  /api/generateData:
+    post:
+      summary: Generar datos ficticios (usuarios y mascotas)
+      description: Genera y almacena en la base de datos una cantidad especificada de usuarios y mascotas ficticias.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: integer
+                  example: 10
+                pets:
+                  type: integer
+                  example: 5
+      responses:
+        201:
+          description: Datos generados exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Datos generados exitosamente."
+                  generatedUsers:
+                    type: integer
+                    example: 10
+                  generatedPets:
+                    type: integer
+                    example: 5
+        400:
+          description: Parámetros inválidos (deben ser números positivos).
+        500:
+          description: Error interno del servidor.
+
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      description: Retorna la lista de todos los usuarios almacenados en la base de datos.
+      responses:
+        200:
+          description: Lista de usuarios obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: "651a8c4e9a1e2b001c2b4557"
+                    name:
+                      type: string
+                      example: "Ana López"
+                    email:
+                      type: string
+                      format: email
+                      example: "ana@example.com"
+        500:
+          description: Error interno del servidor.
+
+  /api/pets:
+    get:
+      summary: Obtener todas las mascotas
+      description: Retorna una lista con todas las mascotas almacenadas en la base de datos.
+      responses:
+        200:
+          description: Lista de mascotas obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: "651b2a7c9f1b2a001b2d1234"
+                    name:
+                      type: string
+                      example: "Max"
+                    type:
+                      type: string
+                      example: "Perro"
+        500:
+          description: Error interno del servidor.
