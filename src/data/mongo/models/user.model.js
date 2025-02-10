@@ -8,7 +8,6 @@ const schema = new Schema({
     password: { type: String, required: true },
     role: { type: String, default: 'USER', enum: ['USER', 'ADMIN'] },
     verifyUser: { type: Boolean, default: false },
-    verifyUser: { type: String, default: "1234" },
     isOnline: { type: Boolean, default: false },
 });
 
