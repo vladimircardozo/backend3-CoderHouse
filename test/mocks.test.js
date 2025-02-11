@@ -1,15 +1,12 @@
-import * as chai from "chai";
-import chaiHttp from "chai-http";
+import request from "supertest"
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { expect } from "chai";
 import app from "../app.js";
 import User from "../src/data/mongo/models/user.model.js";
 import Pet from "../src/data/mongo/models/pet.model.js";
 
 dotenv.config();
-
-const { expect } = chai;
-chai.use(chaiHttp);
 
 describe("Testing de la API Mock", () => {
   before(async () => {
@@ -26,7 +23,7 @@ describe("Testing de la API Mock", () => {
 
   describe("GET /mockingusers", () => {
     it("Debe devolver una lista de 50 usuarios generados", async () => {
-      const res = await chai.request(app).get("/mockingusers");
+      const res = await request(app).get("/mockingusers");
       expect(res).to.have.status(200);
       expect(res.body).to.be.an("array");
       expect(res.body).to.have.lengthOf(50);
@@ -35,7 +32,7 @@ describe("Testing de la API Mock", () => {
 
   describe("POST /generateData", () => {
     it("Debe generar datos de usuarios y mascotas correctamente", async () => {
-      const res = await chai.request(app).post("/generateData").send({
+      const res = await request(app).post("/generateData").send({
         users: 5,
         pets: 3,
       });
@@ -45,7 +42,7 @@ describe("Testing de la API Mock", () => {
     });
 
     it("Debe devolver error si los parámetros son inválidos", async () => {
-      const res = await chai.request(app).post("/generateData").send({
+      const res = await request(app).post("/generateData").send({
         users: "cinco",
         pets: -2,
       });
@@ -63,7 +60,7 @@ describe("Testing de la API Mock", () => {
     });
 
     it("Debe obtener la lista de usuarios en la base de datos", async () => {
-      const res = await chai.request(app).get("/users");
+      const res = await request(app).get("/users");
       expect(res).to.have.status(200);
       expect(res.body).to.be.an("array");
       expect(res.body.length).to.be.greaterThan(0);
@@ -79,7 +76,7 @@ describe("Testing de la API Mock", () => {
     });
 
     it("Debe obtener la lista de mascotas en la base de datos", async () => {
-      const res = await chai.request(app).get("/pets");
+      const res = await request(app).get("/pets");
       expect(res).to.have.status(200);
       expect(res.body).to.be.an("array");
       expect(res.body.length).to.be.greaterThan(0);
