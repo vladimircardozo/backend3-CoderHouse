@@ -1,7 +1,5 @@
 import { Schema, model } from "mongoose";
 
-const collection = "pets";
-
 const petSchema = new Schema({
   name: { type: String, required: true }, 
   species: { type: String, required: true }, 
@@ -11,5 +9,5 @@ const petSchema = new Schema({
   updatedAt: { type: Date, default: Date.now }, 
 });
 
-const Pet = model(collection, petSchema);
+const Pet = model("Pet", petSchema); 
 export default Pet;

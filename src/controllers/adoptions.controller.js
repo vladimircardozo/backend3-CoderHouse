@@ -1,4 +1,4 @@
-import Adoption from "../data/mongo/models/adoption.model";
+import Adoption from "../data/mongo/models/adoption.model.js";
 
 export const getAllAdoptions = async (req, res) => {
   try {

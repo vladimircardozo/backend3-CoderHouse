@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
+import User from "./user.model.js";
+import Pet from "./pet.model.js";
 
 const adoptionSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Users",
+    ref: "User",
     required: true,
   },
   pet: {

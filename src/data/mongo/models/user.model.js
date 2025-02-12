@@ -1,7 +1,5 @@
 import { model, Schema } from "mongoose";
 
-const collection = "users";
-
 const schema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, index: true, unique: true },
@@ -11,5 +9,5 @@ const schema = new Schema({
     isOnline: { type: Boolean, default: false },
 });
 
-const User = model(collection, schema);
+const User = model("User", schema);
 export default User;
