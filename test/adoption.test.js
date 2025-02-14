@@ -20,9 +20,12 @@ describe("🦴 Adoptions API", () => {
       "✅ Adopción creada exitosamente"
     );
     expect(res.body).to.have.property("adoption");
+
+    adoptionId = res.body.adoption._id
   });
 
   it("✅ Debería obtener una adopción por ID", async () => {
+    chai.expect(adoptionId).to.not.be.undefined;
     const res = await request(app).get(`/adoptions/${adoptionId}`);
 
     expect(res.status).to.equal(200);
@@ -33,7 +36,7 @@ describe("🦴 Adoptions API", () => {
 
   it("❌ Debería devolver error para una adopción inexistente", async () => {
     const res = await request(app).get(
-      "/adoptions/666666666666666666666666666666"
+      "/adoptions/666666666666666666666666"
     );
 
     expect(res.status).to.equal(404);
