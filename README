@@ -1,0 +1,25 @@
+# 🦴 Adopciones API
+
+API REST para gestionar adopciones de mascotas, desarrollada con Node.js, Express y MongoDB.
+
+## 🚀 Características
+
+- 📌 Creación, lectura, actualización y eliminación de adopciones.
+- 👥 Asociación entre usuarios y mascotas.
+- 🗄️ Base de datos en MongoDB con Mongoose.
+- ✅ Pruebas automatizadas con Jest y Supertest.
+
+## 📦 Instalación
+
+1. Clona el repositorio:
+   ```sh
+   git clone https://github.com/vladimircardozo/backend3-CoderHouse.git
+   cd backend3-CoderHouse
+   ```
+
+2. Instala las dependencias:
+   ```sh
+   npm install
+
+3. iniciar servidor
+npm run dev
